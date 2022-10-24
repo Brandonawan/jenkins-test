@@ -4,6 +4,7 @@ pipeline {
         stage('Stage 1') {
             steps {
                 echo 'Hello world!' 
+                echo 'Pulling... ' + env.GIT_BRANCH
             }
         }
     }
