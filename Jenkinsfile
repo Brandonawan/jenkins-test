@@ -3,10 +3,7 @@ pipeline {
     stages {
         stage('Stage 1') {
             steps {
-                echo 'Hello world!' 
-                echo 'Pulling...' + env.BRANCH_NAME
-                checkout scm
-                
+                echo 'Pulling... ' + env.GIT_BRANCH
             }
         }
     }
