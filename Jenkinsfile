@@ -2,38 +2,36 @@ pipeline {
     agent any
 
     stages {
-        stage('Check Python script') {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'python3 test.py > test-result.txt'
+            }
+        }
+
+        stage('Check Results') {
             steps {
                 script {
-                    def scriptExists = sh (
-                        script: "test -e hello_world.py && echo 'exists' || echo 'does not exist'",
-                        returnStdout: true
-                    ).trim()
-                    if (scriptExists == 'does not exist') {
-                        def lastCommit = sh (
-                            script: "git log --pretty=format:'%H' -n 1",
-                            returnStdout: true
-                        ).trim()
-                        sh "git revert --no-edit ${lastCommit}"
+                    // Read the test results from a file or environment variable.
+                    def testResult = readFile 'test-result.txt'
+
+                    // Check if the test failed.
+                    if (testResult.contains('FAILED')) {
+                        // Rollback the changes if the test failed.
+                        withCredentials([string(credentialsId: 'github-token', variable: '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')]) {
+                            sh "curl -H 'Authorization: token ${GITHUB_TOKEN}' -X POST -d '{\"sha\":\"${env.GIT_COMMIT}\",\"force\":\"true\"}' https://api.github.com/repos/${env.GIT_URL#*/}/git/refs/heads/${env.BRANCH_NAME}"
+                        }
+                    } else {
+                        // Commit the changes if the test passed.
+                        sh 'git commit -m "Fix issue in sample.py"'
+                        sh 'git push origin ${env.BRANCH_NAME}'
                     }
                 }
-            }
-        }
-        stage('Build and test') {
-            steps {
-                sh 'python hello_world.py' || error("Build failed")
-            }
-        }
-    }
-
-    post {
-        failure {
-            script {
-                def lastCommit = sh (
-                    script: "git log --pretty=format:'%H' -n 1",
-                    returnStdout: true
-                ).trim()
-                sh "git revert --no-edit ${lastCommit}"
             }
         }
     }
