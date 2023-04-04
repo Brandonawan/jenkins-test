@@ -10,7 +10,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'python3 test.py > test-result.txt'
+                sh 'python test.py > test-result.txt'
             }
         }
 
