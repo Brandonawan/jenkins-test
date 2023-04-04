@@ -34,7 +34,7 @@ pipeline {
             }
         }
 
-        stage(' Unit Testing') {
+        stage('Unit Testing') {
             steps {
                 sh """
                 echo "Running Unit Tests"
@@ -62,6 +62,29 @@ pipeline {
                 sh """
                 echo "Deploying Code"
                 """
+            }
+        }
+
+        stage('Check for Merge to Master') {
+            when {
+                branch 'main'
+            }
+            steps {
+                // Check if the last commit was a merge to main
+                script {
+                    def lastCommit = sh(script: 'git log -1 --pretty=format:"%s"', returnStdout: true).trim()
+                    if (lastCommit.contains('Merge pull request')) {
+                        sh 'git checkout main'
+                        sh 'git pull'
+                        sh 'git merge --no-ff $GIT_BRANCH'
+                        sh 'sh script_to_test_entire_codebase.sh'
+                        // If the tests fail, revert the last commit
+                        if (sh(script: 'sh script_to_test_entire_codebase.sh', returnStatus: true) != 0) {
+                            sh 'git revert HEAD'
+                            sh 'git push'
+                        }
+                    }
+                }
             }
         }
 
