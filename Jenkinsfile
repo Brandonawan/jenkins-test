@@ -23,8 +23,8 @@ pipeline {
 
         stage('Run') {
             steps {
-                // Start the app
-                sh 'npm start'
+                // Start the app in the background
+                sh 'npm start &'
             }
 
             // Wait for the app to start up
@@ -34,13 +34,15 @@ pipeline {
                     sleep time: 10, unit: 'SECONDS'
                 }
             }
-        }
-    }
 
-    post {
-        always {
-            // Stop the app
-            sh 'npm stop'
+            // Stop the app after 60 seconds
+            post {
+                always {
+                    timeout(time: 60, unit: 'SECONDS') {
+                        sh 'npm stop'
+                    }
+                }
+            }
         }
     }
 }
