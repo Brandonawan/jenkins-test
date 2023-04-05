@@ -14,14 +14,22 @@ pipeline {
                             script: "git log --pretty=format:'%H' -n 1",
                             returnStdout: true
                         ).trim()
-                        sh "git revert --no-edit -m 1 ${lastCommit}"
+                        try {
+                            sh "git revert --no-edit -m 1 ${lastCommit}"
+                        } catch (Exception ex) {
+                            echo "Failed to revert commit: ${lastCommit}. ${ex.getMessage()}"
+                        }
                     }
                 }
             }
         }
         stage('Build and test') {
             steps {
-                sh 'python hello_world.py' || error("Build failed")
+                try {
+                    sh 'python hello_world.py'
+                } catch (Exception ex) {
+                    error("Build failed. ${ex.getMessage()}")
+                }
             }
         }
     }
@@ -33,7 +41,11 @@ pipeline {
                     script: "git log --pretty=format:'%H' -n 1",
                     returnStdout: true
                 ).trim()
-                sh "git revert --no-edit -m 1 ${lastCommit}"
+                try {
+                    sh "git revert --no-edit -m 1 ${lastCommit}"
+                } catch (Exception ex) {
+                    echo "Failed to revert commit: ${lastCommit}. ${ex.getMessage()}"
+                }
             }
         }
     }
