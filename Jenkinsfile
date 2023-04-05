@@ -14,7 +14,7 @@ pipeline {
                             script: "git log --pretty=format:'%H' -n 1",
                             returnStdout: true
                         ).trim()
-                        sh "git revert --no-edit ${lastCommit}"
+                        sh "git revert --no-edit -m 1 ${lastCommit}"
                     }
                 }
             }
@@ -33,7 +33,7 @@ pipeline {
                     script: "git log --pretty=format:'%H' -n 1",
                     returnStdout: true
                 ).trim()
-                sh "git revert --no-edit ${lastCommit}"
+                sh "git revert --no-edit -m 1 ${lastCommit}"
             }
         }
     }
