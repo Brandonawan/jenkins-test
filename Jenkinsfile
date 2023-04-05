@@ -10,7 +10,7 @@ pipeline {
                           doGenerateSubmoduleConfigurations: false, 
                           extensions: [], 
                           submoduleCfg: [], 
-                          userRemoteConfigs: [[url: 'https://github.com/username/my-node-app.git']]])
+                          userRemoteConfigs: [[url: 'https://github.com/Brandonawan/jenkins-test.git']]])
             }
         }
 
