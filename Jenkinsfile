@@ -1,33 +1,31 @@
 pipeline {
     agent any
+    
     stages {
-        stage('Checkout') {
+        stage('Checkout SCM') {
             steps {
-                // Checkout the code from Git
-                checkout([$class: 'GitSCM',
-                          branches: [[name: '*/main']],
-                          doGenerateSubmoduleConfigurations: false,
-                          extensions: [],
-                          submoduleCfg: [],
-                          userRemoteConfigs: [[url: 'https://github.com/Brandonawan/jenkins-test.git']]])
+                checkout scm
             }
         }
+        
         stage('Build') {
             steps {
                 sh 'npm install'
             }
         }
+        
         stage('Run') {
             steps {
                 sh 'timeout -k 5s 60s node app.js'
             }
         }
-    }
-    post {
-        failure {
-            // Revert the commit if the build fails
-            sh 'git reset --hard HEAD^'
-            sh 'git push --force'
+        
+        stage('Post Actions') {
+            steps {
+                sh 'git checkout main'
+                sh 'git reset --hard HEAD^'
+                sh 'git push --force'
+            }
         }
     }
 }
