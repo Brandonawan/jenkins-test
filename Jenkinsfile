@@ -4,32 +4,18 @@ pipeline {
     stages {
         stage('Checkout SCM') {
             steps {
-                checkout([$class: 'GitSCM',
-                    branches: [[name: '*/main']],
-                    doGenerateSubmoduleConfigurations: false,
-                    extensions: [],
-                    submoduleCfg: [],
-                    userRemoteConfigs: [[url: 'https://github.com/Brandonawan/jenkins-test.git']]]
-
+                checkout scm
             }
         }
         
-        stage('Build') {
+        stage('Revert') {
             steps {
-                sh 'npm install'
-            }
-        }
-        
-        stage('Run') {
-            steps {
-                sh 'npm start'
+                sh 'git revert HEAD'
             }
         }
         
         stage('Post Actions') {
             steps {
-                sh 'git checkout main'
-                sh 'git reset --hard HEAD~1'
                 sh 'git push --force'
             }
         }
