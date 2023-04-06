@@ -23,15 +23,9 @@ pipeline {
 
         stage('Run') {
             steps {
-                // Start the app
-                sh 'npm start'
-            }
-
-            // Wait for the app to start up
-            // You may need to adjust the delay based on your app's startup time
-            post {
-                always {
-                    sleep time: 60, unit: 'SECONDS'
+                // Start the app with a 2-minute timeout
+                timeout(time: 2, unit: 'MINUTES') {
+                    sh 'npm start'
                 }
             }
         }
