@@ -16,7 +16,7 @@ pipeline {
         
         stage('Run') {
             steps {
-                sh 'timeout -k 5s 60s node app.js'
+                sh 'npm start'
             }
         }
         
