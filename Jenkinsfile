@@ -31,7 +31,7 @@ pipeline {
             // You may need to adjust the delay based on your app's startup time
             post {
                 always {
-                    sleep time: 10, unit: 'SECONDS'
+                    sleep time: 60, unit: 'SECONDS'
                 }
             }
         }

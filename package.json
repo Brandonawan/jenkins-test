@@ -4,7 +4,7 @@
   "description": "Jenkinsfile for testing jenkins and github pull request intergration..",
   "main": "app.js",
   "scripts": {
-    "start": "timeout -s SIGTERM 600s node app.js",
+    "start": "node app.js",
     "stop": "echo 'Stopping the app...'"
   },
   "keywords": [],
