@@ -21,20 +21,4 @@ pipeline {
             }
         }
 
-        stage('Run') {
-            steps {
-                // Start the app with a 2-minute timeout
-                timeout(time: 2, unit: 'MINUTES') {
-                    sh 'npm start'
-                }
-            }
-        }
-    }
-
-    post {
-        always {
-            // Stop the app
-            sh 'npm stop'
-        }
-    }
 }
