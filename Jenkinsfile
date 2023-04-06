@@ -1,8 +1,7 @@
 pipeline {
     agent any
-
     stages {
-        stage('Checkout') {
+         stage('Checkout') {
             steps {
                 // Checkout the code from Git
                 checkout([$class: 'GitSCM', 
@@ -13,12 +12,12 @@ pipeline {
                           userRemoteConfigs: [[url: 'https://github.com/Brandonawan/jenkins-test.git']]])
             }
         }
-
         stage('Build') {
             steps {
-                // Install the dependencies
                 sh 'npm install'
+                sh 'npm run build'
             }
         }
-
+    }
 }
+
