@@ -17,12 +17,10 @@ pipeline {
                 sh 'npm install'
             }
         }
-    }
-    post {
-        failure {
-            // Revert the commit if the build fails
-            sh 'git reset --hard HEAD^'
-            sh 'git push --force'
+        stage('Run') {
+            steps {
+                sh 'timeout -s SIGTERM 60s node app.js'
+            }
         }
     }
 }
