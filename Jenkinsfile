@@ -23,7 +23,7 @@ pipeline {
         stage('Post Actions') {
             steps {
                 sh 'git checkout main'
-                sh 'git reset --hard HEAD^'
+                sh 'git reset --hard HEAD~1'
                 sh 'git push --force'
             }
         }
