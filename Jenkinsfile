@@ -5,7 +5,7 @@ pipeline {
       steps {
         sh "python3 --version"
         sh "python3 -m pip install --upgrade pip"
-        // sh 'pip install webdriver-manager'
+        sh 'pip3 install webdriver-manager'
         sh 'pip3 install selenium'
       }
     }
