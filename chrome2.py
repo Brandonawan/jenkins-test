@@ -3,7 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 # Set the path to the ChromeDriver executable
-chrome_driver_path = '/home/brandon/Downloads/chromedriver/chromedriver'
+# chrome_driver_path = '/home/brandon/Downloads/chromedriver/chromedriver'
+chrome_driver_path = "/usr/bin/chromedriver"
 
 # Set up Chrome options
 chrome_options = Options()
