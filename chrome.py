@@ -1,19 +1,34 @@
+import time
 from selenium import webdriver
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.common.by import By
 
-# Set the path to the ChromeDriver executable
-# chrome_driver_path = '/usr/bin/chromedriver'
-chrome_driver_path = '/home/brandon/Downloads/chromedriver/chromedriver'
+# Set up Firefox options
+firefox_options = Options()
+firefox_options.headless = True
 
-# Set up Chrome WebDriver
-driver = webdriver.Chrome(executable_path=chrome_driver_path)
+# Set up Firefox WebDriver with the options
+driver_service = FirefoxService(executable_path=GeckoDriverManager().install())
+driver = webdriver.Firefox(service=driver_service, options=firefox_options)
 
-# Navigate to the website you want to test
-driver.get('https://www.example.com')
+# Open a website
+driver.get('http://www.google.com/')
 
-# Perform your Selenium actions
-# ...
+time.sleep(5)  # Let the page load
 
-print("Completed successfully!..")
+# Perform some actions
+search_box = driver.find_element('name', 'q')
+search_box.send_keys('Selenium 4')
+search_box.submit()
 
-# Quit the driver
+time.sleep(5)  # Let the search results load
+
+# Get the search results and print the titles
+search_results = driver.find_elements('xpath', '//h3')
+for result in search_results:
+    print(result.text)
+
+# Quit the WebDriver
 driver.quit()
