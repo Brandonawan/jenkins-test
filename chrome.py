@@ -4,31 +4,52 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.select import Select
 
 # Set up Firefox options
 firefox_options = Options()
-firefox_options.headless = True
+firefox_options.headless = False  # Run Firefox in headless mode for better performance
 
 # Set up Firefox WebDriver with the options
 driver_service = FirefoxService(executable_path=GeckoDriverManager().install())
 driver = webdriver.Firefox(service=driver_service, options=firefox_options)
 
-# Open a website
-driver.get('http://www.google.com/')
+# Set maximum wait time for explicit waits
+wait = WebDriverWait(driver, 10)
 
-time.sleep(5)  # Let the page load
+base_url = "http://3.109.132.239:8080/" 
+driver.get(f"{base_url}auth/login")
 
-# Perform some actions
-search_box = driver.find_element('name', 'q')
-search_box.send_keys('Selenium 4')
-search_box.submit()
+# Login
+username_input = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='username']")))
+username_input.send_keys("ccadmin")
+password_input = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='password']")))
+password_input.send_keys("admin#123")
+login_button = wait.until(EC.element_to_be_clickable((By.ID, "submit")))
+login_button.click()
 
-time.sleep(5)  # Let the search results load
+# Wait for the dashboard page to load
+dashboard_url = base_url + "dashboard"
+wait.until(EC.url_to_be(dashboard_url))
+assert driver.current_url == dashboard_url
+print(f"✓ Login successful to: {dashboard_url}")
 
-# Get the search results and print the titles
-search_results = driver.find_elements('xpath', '//h3')
-for result in search_results:
-    print(result.text)
+# Set the path to the chromedriver binar
 
-# Quit the WebDriver
+# Find the wcagDb link in the sidebar and click it
+wcagdb_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "a[href='/wcagDB']")))
+wcagdb_link.click()
+
+# Wait for the wcagDb page to load
+wcagdb_url = base_url+"wcagDB"
+WebDriverWait(driver, 12).until(EC.url_to_be(wcagdb_url))
+assert driver.current_url == wcagdb_url
+print(f"✓ wcagDb dashboard: {wcagdb_url}")
+
+# sleep for 5 seconds
+time.sleep(3)
+
+# Close the browser
 driver.quit()
