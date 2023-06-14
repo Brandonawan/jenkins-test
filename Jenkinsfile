@@ -8,7 +8,7 @@ pipeline {
     }
     stage('Run Selenium Script') {
       steps {
-        sh 'python3 selenium_script.py'
+        sh 'python3 chrome2.py'
       }
     }
   }
