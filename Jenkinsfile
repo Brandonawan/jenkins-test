@@ -1,14 +1,14 @@
 pipeline {
   agent any
   stages {
-    stage('version') {
+    stage('Install Dependencies') {
       steps {
-        sh 'python3 --version'
+        sh 'pip install webdriver-manager'
       }
     }
-    stage('hello') {
+    stage('Run Selenium Script') {
       steps {
-        sh 'python3 chrome2.py'
+        sh 'python3 selenium_script.py'
       }
     }
   }
