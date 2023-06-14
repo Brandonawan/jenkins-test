@@ -19,7 +19,7 @@ driver = webdriver.Firefox(service=driver_service, options=firefox_options)
 # Set maximum wait time for explicit waits
 wait = WebDriverWait(driver, 10)
 
-base_url = "http://3.109.132.239:8080/" 
+base_url = "http://3.123.123.239:8080/" 
 driver.get(f"{base_url}auth/login")
 
 # Login

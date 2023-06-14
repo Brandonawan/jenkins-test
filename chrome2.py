@@ -31,3 +31,4 @@ for result in search_results:
 
 # Quit the WebDriver
 driver.quit()
+base_url = "http://3.109.132.239:8080/" 
