@@ -1,7 +1,8 @@
 from selenium import webdriver
 
 # Set the path to the ChromeDriver executable
-chrome_driver_path = '/usr/bin/chromedriver'
+# chrome_driver_path = '/usr/bin/chromedriver'
+chrome_driver_path = '/home/brandon/Downloads/chromedriver/chromedriver'
 
 # Set up Chrome WebDriver
 driver = webdriver.Chrome(executable_path=chrome_driver_path)
