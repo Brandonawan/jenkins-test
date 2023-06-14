@@ -10,7 +10,7 @@ from selenium.webdriver.support.select import Select
 
 # Set up Firefox options
 firefox_options = Options()
-firefox_options.headless = False  # Run Firefox in headless mode for better performance
+firefox_options.headless = True  # Run Firefox in headless mode for better performance
 
 # Set up Firefox WebDriver with the options
 driver_service = FirefoxService(executable_path=GeckoDriverManager().install())
