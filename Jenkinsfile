@@ -13,19 +13,6 @@ pipeline {
       steps {
         sh 'python3 chrome4.py'
       }
-      post {
-            success {
-            publishHTML([
-              allowMissing: false,
-              alwaysLinkToLastBuild: false,
-              keepAll: false,
-              reportDir: target,
-              reportFiles: 'surefire-report.html',
-              reportName: 'Surefire Report',
-              reportTitles: '',
-            ])
-          }
-      }
     }
   }
 }
