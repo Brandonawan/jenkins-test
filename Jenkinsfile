@@ -15,17 +15,12 @@ pipeline {
       }
       post {
             success {
-              script {
-            // Define the HTML report directory and file
-            def reportDir = 'target'
-            def reportFile = 'surefire-report.html'
-
             publishHTML([
               allowMissing: false,
               alwaysLinkToLastBuild: false,
               keepAll: false,
-              reportDir: reportDir,
-              reportFiles: reportFile,
+              reportDir: target,
+              reportFiles: 'surefire-report.html',
               reportName: 'Surefire Report',
               reportTitles: '',
             ])
