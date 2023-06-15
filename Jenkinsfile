@@ -14,5 +14,18 @@ pipeline {
         sh 'python3 chrome2.py'
       }
     }
+    stage('Publish HTML Report') {
+      steps {
+        publishHTML(target: [
+          allowMissing: false,
+          alwaysLinkToLastBuild: true,
+          keepAll: true,
+          reportDir: 'target/surefire-reports',
+          reportFiles: 'index.html',
+          reportName: 'Test Report',
+          reportTitles: 'Test Results'
+        ])
+      }
+    }
   }
 }
