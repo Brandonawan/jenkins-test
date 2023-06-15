@@ -11,7 +11,7 @@ pipeline {
     }
     stage('Run Selenium Script') {
       steps {
-        sh 'python3 chrome3.py'
+        sh 'python3 chrome4.py'
       }
       post {
             success {

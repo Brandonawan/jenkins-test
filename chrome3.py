@@ -3,9 +3,9 @@ from selenium import webdriver
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 
-# Set the Firefox driver to headless mode
-options = webdriver.FirefoxOptions()
-options.add_argument('-headless')
+# Set the Chrome driver to headless mode
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
 
 # Create a new Firefox browser instance
 driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=options)
