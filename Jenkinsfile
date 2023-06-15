@@ -41,7 +41,7 @@ pipeline {
           sh "python3 -m venv ${VIRTUAL_ENV}"
           
           // Activate the virtual environment
-          sh "source ${VIRTUAL_ENV}/bin/activate"
+          sh ". ${VIRTUAL_ENV}/bin/activate"
         }
       }
     }
