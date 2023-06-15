@@ -6,11 +6,11 @@ from selenium.webdriver.chrome.options import Options
 
 # Set up Chrome options
 chrome_options = Options()
-chrome_options.add_argument('--headless')  # Enable headless mode
+chrome_options.headless = True  # Enable headless mode
 
 # Set up Chrome WebDriver with the options
-driver_service = ChromeService(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=driver_service, options=chrome_options)
+driver_service = ChromeService(executable_path=ChromeDriverManager().install())
+driver = webdriver.Chrome(options=chrome_options)
 
 # Open a website
 driver.get('http://www.google.com/')
@@ -31,3 +31,4 @@ for result in search_results:
 
 # Quit the WebDriver
 driver.quit()
+
