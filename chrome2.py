@@ -32,20 +32,21 @@
 # # Quit the WebDriver
 # driver.quit()
 
-
 import time
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
+from webdriver_manager.firefox import GeckoDriverManager
 
-# Set up Chrome options
-chrome_options = Options()
-chrome_options.headless = True  # Enable headless mode
+# Set headless mode options
+options = Options()
+options.add_argument('-headless')
 
-# Set up Chrome WebDriver with the options
-driver_service = ChromeService(executable_path=ChromeDriverManager().install())
-driver = webdriver.Chrome(options=chrome_options)
+# Set up the Firefox driver service
+service = Service(GeckoDriverManager().install())
+
+# Set up the Firefox driver
+driver = webdriver.Firefox(service=service, options=options)
 
 # Open a website
 driver.get('http://www.google.com/')
