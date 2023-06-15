@@ -11,17 +11,18 @@ pipeline {
     }
     stage('Run Selenium Script') {
       steps {
-        sh 'python3 chrome.py'
+        sh 'python3 chrome2.py'
       }
       post {
             success {
-            publishHTML ([
+            publishHTML([
               allowMissing: false,
               alwaysLinkToLastBuild: false,
-              keepAll: true,
-              reportDir: 'coverage',
-              reportFiles: 'index.html',
-              reportName: "RCov Report"
+              keepAll: false,
+              reportDir: reportDir,
+              reportFiles: reportFile,
+              reportName: 'Surefire Report',
+              reportTitles: '',
             ])
           }
       }
