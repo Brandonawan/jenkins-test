@@ -146,11 +146,13 @@ for func, result in summary_data:
     table_row = f"<tr><td>{func}</td><td class='{status_class}'>{result}</td></tr>"
     table_rows += table_row
 
-# Format the table data within the HTML template
+# Generate the HTML report
 html_report = html_template.format(table_data=table_rows)
 
 # Save the HTML report to a file
-with open("report.html", "w") as f:
-    f.write(html_report)
+report_file_path = "test_report.html"
+with open(report_file_path, "w") as report_file:
+    report_file.write(html_report)
 
-driver.quit()
+# Print a message with the file path
+print("Test report saved to:", report_file_path)
