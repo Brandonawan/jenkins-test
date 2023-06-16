@@ -26,6 +26,11 @@ driver.maximize_window()
 
 results = {}
 
+def landing_page_before_login():
+    driver.get(base_url)
+    driver.implicitly_wait(10)
+    driver.quit()
+    
 def login():
     # Navigate to the app login page
     driver.get(base_url+"auth/login")
@@ -88,11 +93,11 @@ def wcag_version_filters():
     print(colored("✓", "green"), f"All guidelines selected")
     
     results['wcag_version_filters'] = True
-    
+landing_page_before_login()
 wcag_version_filters()
 
 
-total_functions = 2   #Update the total number of functions being tested
+total_functions = 3   #Update the total number of functions being tested
 passed_functions = sum(results.values())
 test_coverage = (passed_functions / total_functions) * 100 if total_functions > 0 else 0
 
