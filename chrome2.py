@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.firefox import GeckoDriverManager
 from tabulate import tabulate
-from colored import fg, bg, attr
+from termcolor import colored
 
 
 # Set headless mode options
@@ -61,7 +61,7 @@ def wcagdb():
     
 wcagdb()
 
-total_functions = 2  # Update the total number of functions being tested
+# total_functions = 2   Update the total number of functions being tested
 # passed_functions = sum(results.values())
 # test_coverage = (passed_functions / total_functions) * 100 if total_functions > 0 else 0
 
@@ -80,7 +80,9 @@ total_functions = 2  # Update the total number of functions being tested
 
 # driver.quit()
 
-# Calculate test coverage
+# Perform the tests
+results = {}
+total_functions = 2
 passed_functions = sum(results.values())
 test_coverage = (passed_functions / total_functions) * 100 if total_functions > 0 else 0
 
@@ -104,4 +106,3 @@ with open("report.html", "w") as f:
     f.write(html_table)
 
 driver.quit()
-
