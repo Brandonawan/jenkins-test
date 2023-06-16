@@ -7,6 +7,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.firefox import GeckoDriverManager
 from tabulate import tabulate
+from colored import fg, bg, attr
+
 
 # Set headless mode options
 options = Options()
@@ -59,22 +61,47 @@ def wcagdb():
     
 wcagdb()
 
-total_functions = 2  # Update the total number of functions being tested
+# total_functions = 2  # Update the total number of functions being tested
+# passed_functions = sum(results.values())
+# test_coverage = (passed_functions / total_functions) * 100 if total_functions > 0 else 0
+
+# # Generate the report summary table
+# summary_data = []
+# for func, result in results.items():
+#     status = "Passed" if result else "Failed"
+#     summary_data.append([func, status])
+# summary_data.append(["Test Coverage", f"{test_coverage}%"])
+
+# # Print the report summary table
+# print("---------- Test Report Summary ----------")
+# table_headers = ["Test Case", "Status"]
+# table = tabulate(summary_data, headers=table_headers, tablefmt="grid")
+# print(table)
+
+# driver.quit()
+
+# Calculate test coverage
 passed_functions = sum(results.values())
 test_coverage = (passed_functions / total_functions) * 100 if total_functions > 0 else 0
 
 # Generate the report summary table
 summary_data = []
-for func, result in results.items():
-    status = "Passed" if result else "Failed"
-    summary_data.append([func, status])
-summary_data.append(["Test Coverage", f"{test_coverage}%"])
+for i, (func, result) in enumerate(results.items(), start=1):
+    status = colored("Passed", "green") if result else colored("Failed", "red")
+    summary_data.append([i, func, status])
+summary_data.append([colored("Test Coverage", attrs=["bold"]), colored(f"{test_coverage:.2f}%", attrs=["bold"])])
 
 # Print the report summary table
 print("---------- Test Report Summary ----------")
-table_headers = ["Test Case", "Status"]
+table_headers = [colored("Test Case", attrs=["bold"]), colored("Function", attrs=["bold"]), colored("Status", attrs=["bold"])]
 table = tabulate(summary_data, headers=table_headers, tablefmt="grid")
 print(table)
+
+# Generate HTML report
+html_table = tabulate(summary_data, headers=table_headers, tablefmt="html")
+
+with open("report.html", "w") as f:
+    f.write(html_table)
 
 driver.quit()
 
