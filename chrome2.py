@@ -156,3 +156,6 @@ with open(report_file_path, "w") as report_file:
 
 # Print a message with the file path
 print("Test report saved to:", report_file_path)
+print(html_report)
+
+driver.quit()
