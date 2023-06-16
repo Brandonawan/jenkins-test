@@ -98,32 +98,32 @@ html_template = """
 <html>
 <head>
     <style>
-        table {
+        table {{
             border-collapse: collapse;
             width: 100%;
-        }
+        }}
 
-        th, td {
+        th, td {{
             padding: 8px;
             text-align: left;
             border-bottom: 1px solid #ddd;
-        }
+        }}
 
-        th {
+        th {{
             background-color: #f2f2f2;
-        }
+        }}
 
-        .passed {
+        .passed {{
             color: green;
-        }
+        }}
 
-        .failed {
+        .failed {{
             color: red;
-        }
+        }}
 
-        .coverage {
+        .coverage {{
             font-weight: bold;
-        }
+        }}
     </style>
 </head>
 <body>
