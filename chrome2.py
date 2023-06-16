@@ -7,8 +7,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.firefox import GeckoDriverManager
 from tabulate import tabulate
-from termcolor import colored
-
 
 # Set headless mode options
 options = Options()
@@ -61,35 +59,16 @@ def wcagdb():
     
 wcagdb()
 
-# total_functions = 2   #Update the total number of functions being tested
-# passed_functions = sum(results.values())
-# test_coverage = (passed_functions / total_functions) * 100 if total_functions > 0 else 0
-
-# # Generate the report summary table
-# summary_data = []
-# for func, result in results.items():
-#     status = "Passed" if result else "Failed"
-#     summary_data.append([func, status])
-# summary_data.append(["Test Coverage", f"{test_coverage}%"])
-
-# # Print the report summary table
-# print("---------- Test Report Summary ----------")
-# table_headers = ["Test Case", "Status"]
-# table = tabulate(summary_data, headers=table_headers, tablefmt="grid")
-# print(table)
-
-# driver.quit()
-
-total_functions = 2  # Update the total number of functions being tested
+total_functions = 2   #Update the total number of functions being tested
 passed_functions = sum(results.values())
 test_coverage = (passed_functions / total_functions) * 100 if total_functions > 0 else 0
 
 # Generate the report summary table
 summary_data = []
 for func, result in results.items():
-    status = colored("Passed", "green") if result else colored("Failed", "red")
+    status = "Passed" if result else "Failed"
     summary_data.append([func, status])
-summary_data.append(["Test Coverage", f"{test_coverage:.2f}%"])
+summary_data.append(["Test Coverage", f"{test_coverage}%"])
 
 # Print the report summary table
 print("---------- Test Report Summary ----------")
@@ -98,3 +77,4 @@ table = tabulate(summary_data, headers=table_headers, tablefmt="grid")
 print(table)
 
 driver.quit()
+print("✓ Test completed successfully")
