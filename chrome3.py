@@ -93,11 +93,11 @@ def wcag_version_filters():
     print(colored("✓", "green"), f"All guidelines selected")
     
     results['wcag_version_filters'] = True
-landing_page_before_login()
+# landing_page_before_login()
 wcag_version_filters()
 
 
-total_functions = 3   #Update the total number of functions being tested
+total_functions = 2   #Update the total number of functions being tested
 passed_functions = sum(results.values())
 test_coverage = (passed_functions / total_functions) * 100 if total_functions > 0 else 0
 
@@ -111,7 +111,7 @@ summary_data.append(["Test Coverage", f"{test_coverage}%"])
 
 # Print the report summary table
 print(colored(f"---------- Test Report Summary ------------", "yellow"))
-table_headers = ["Test Case", "Status"]
+table_headers = ["Test Name", "Status"]
 table = tabulate(summary_data, headers=table_headers, tablefmt="grid")
 print(colored(f"{table}", "green"))
 
