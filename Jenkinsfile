@@ -49,7 +49,6 @@ pipeline {
       steps {
         sh "python3 --version"
         sh "pip3 install --upgrade pip"
-        sh "pip3 install tabulate"
         sh "pip3 install -r requirements.txt"
       }
     }
