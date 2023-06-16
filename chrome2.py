@@ -74,6 +74,8 @@ def login():
     assert driver.current_url == dashboard_url
     print(f"✓ Login successful to: {dashboard_url}")
     
+    results['login'] = True
+    
 def wcagdb():
     login()
     # Find the wcagDb link in the sidebar and click it
@@ -86,12 +88,14 @@ def wcagdb():
     assert driver.current_url == wcagdb_url
     print(f"✓ wcagDb dashboard: {wcagdb_url}") 
     
+    results['wcagdb'] = True
+    
 wcagdb()
 
 # Calculate the test coverage
 total_functions = 2  # Update the total number of functions being tested
 passed_functions = sum(results.values())
-test_coverage = (passed_functions / total_functions) * 100
+test_coverage = (passed_functions / total_functions) * 100 if total_functions > 0 else 0
 
 # Generate the report summary
 print("---------- Test Report Summary ----------")
