@@ -92,16 +92,35 @@ def wcagdb():
     
 wcagdb()
 
+# # Calculate the test coverage
+# total_functions = 2  # Update the total number of functions being tested
+# passed_functions = sum(results.values())
+# test_coverage = (passed_functions / total_functions) * 100 if total_functions > 0 else 0
+
+# # Generate the report summary
+# print("---------- Test Report Summary ----------")
+# for func, result in results.items():
+#     status = "Passed" if result else "Failed"
+#     print(f"{func}: {status}")
+# print(f"Test Coverage: {test_coverage}%")
+
+# driver.quit()
 # Calculate the test coverage
 total_functions = 2  # Update the total number of functions being tested
 passed_functions = sum(results.values())
 test_coverage = (passed_functions / total_functions) * 100 if total_functions > 0 else 0
 
-# Generate the report summary
-print("---------- Test Report Summary ----------")
+# Generate the report summary table
+summary_data = []
 for func, result in results.items():
     status = "Passed" if result else "Failed"
-    print(f"{func}: {status}")
-print(f"Test Coverage: {test_coverage}%")
+    summary_data.append([func, status])
+summary_data.append(["Test Coverage", f"{test_coverage}%"])
+
+# Print the report summary table
+print("---------- Test Report Summary ----------")
+table_headers = ["Function", "Status"]
+table = tabulate(summary_data, headers=table_headers, tablefmt="grid")
+print(table)
 
 driver.quit()
