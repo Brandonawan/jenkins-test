@@ -61,7 +61,7 @@ def wcagdb():
     
 wcagdb()
 
-# total_functions = 2  # Update the total number of functions being tested
+total_functions = 2  # Update the total number of functions being tested
 # passed_functions = sum(results.values())
 # test_coverage = (passed_functions / total_functions) * 100 if total_functions > 0 else 0
 
