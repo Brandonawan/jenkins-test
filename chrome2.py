@@ -86,21 +86,71 @@ total_functions = 2
 passed_functions = sum(results.values())
 test_coverage = (passed_functions / total_functions) * 100 if total_functions > 0 else 0
 
-# Generate the report summary table
 summary_data = []
-for i, (func, result) in enumerate(results.items(), start=1):
+for func, result in results.items():
     status = "Passed" if result else "Failed"
-    summary_data.append([i, func, status])
+    summary_data.append([func, status])
 summary_data.append(["Test Coverage", f"{test_coverage:.2f}%"])
 
-# Print the report summary table
-print("---------- Test Report Summary ----------")
-table_headers = ["Test Case", "Function", "Status"]
-table = tabulate(summary_data, headers=table_headers, tablefmt="html")
-print(table)
+# Define the HTML template for the report
+html_template = """
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-# Generate HTML report
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .passed {
+            color: green;
+        }
+
+        .failed {
+            color: red;
+        }
+
+        .coverage {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Test Report Summary</h2>
+    <table>
+        <tr>
+            <th>Test Case</th>
+            <th>Status</th>
+        </tr>
+        {table_data}
+    </table>
+</body>
+</html>
+"""
+
+# Generate the HTML table rows for the report summary
+table_rows = ""
+for func, result in summary_data:
+    status_class = "passed" if result == "Passed" else "failed"
+    table_row = f"<tr><td>{func}</td><td class='{status_class}'>{result}</td></tr>"
+    table_rows += table_row
+
+# Format the table data within the HTML template
+html_report = html_template.format(table_data=table_rows)
+
+# Save the HTML report to a file
 with open("report.html", "w") as f:
-    f.write(table)
+    f.write(html_report)
 
 driver.quit()
