@@ -36,6 +36,9 @@ import time
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.firefox import GeckoDriverManager
 
 # Set headless mode options
@@ -48,23 +51,37 @@ service = Service(GeckoDriverManager().install())
 # Set up the Firefox driver
 driver = webdriver.Firefox(service=service, options=options)
 
-# Open a website
-driver.get('http://www.google.com/')
+base_url = "http://3.109.132.239:8080/"
 
-time.sleep(5)  # Let the page load
+def login():
+    # Navigate to the app login page
+    driver.get(base_url+"auth/login")
 
-# Perform some actions
-search_box = driver.find_element('name', 'q')
-search_box.send_keys('Selenium 4')
-search_box.submit()
+    # Find the username input element and enter the username
+    username_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='username']"))).send_keys("ccadmin")
 
-time.sleep(5)  # Let the search results load
+    # Find the password input element and enter the password
+    password_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='password']"))).send_keys("admin#123")
 
-# Get the search results and print the titles
-search_results = driver.find_elements('xpath', '//h3')
-for result in search_results:
-    print(result.text)
+    # Find the login button and click it
+    login_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "submit"))).click()
+    
+    # Wait for the dashboard page to load
+    dashboard_url = base_url+"dashboard"
+    WebDriverWait(driver, 10).until(EC.url_to_be(dashboard_url))
+    assert driver.current_url == dashboard_url
+    print(f"✓ Login successful to: {dashboard_url}")
+    
+def wcagdb():
+    login()
+    # Find the wcagDb link in the sidebar and click it
+    wcagdb_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "a[href='/wcagDB']")))
+    wcagdb_link.click()
 
-# Quit the WebDriver
-driver.quit()
-
+    # Wait for the wcagDb page to load
+    wcagdb_url = base_url+"wcagDB"
+    WebDriverWait(driver, 12).until(EC.url_to_be(wcagdb_url))
+    assert driver.current_url == wcagdb_url
+    print(f"✓ wcagDb dashboard: {wcagdb_url}") 
+    
+wcagdb()
