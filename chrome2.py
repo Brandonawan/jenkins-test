@@ -53,17 +53,19 @@ driver = webdriver.Firefox(service=service, options=options)
 
 base_url = "http://3.109.132.239:8080/"
 
+driver.maximize_window()
+
+results = {}
+
 def login():
     # Navigate to the app login page
     driver.get(base_url+"auth/login")
 
     # Find the username input element and enter the username
     username_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='username']"))).send_keys("ccadmin")
-
-    # Find the password input element and enter the password
+    
     password_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[name='password']"))).send_keys("admin#123")
-
-    # Find the login button and click it
+    
     login_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "submit"))).click()
     
     # Wait for the dashboard page to load
@@ -85,3 +87,17 @@ def wcagdb():
     print(f"✓ wcagDb dashboard: {wcagdb_url}") 
     
 wcagdb()
+
+# Calculate the test coverage
+total_functions = 2  # Update the total number of functions being tested
+passed_functions = sum(results.values())
+test_coverage = (passed_functions / total_functions) * 100
+
+# Generate the report summary
+print("---------- Test Report Summary ----------")
+for func, result in results.items():
+    status = "Passed" if result else "Failed"
+    print(f"{func}: {status}")
+print(f"Test Coverage: {test_coverage}%")
+
+driver.quit()

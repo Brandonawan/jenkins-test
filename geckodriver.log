@@ -2651,3 +2651,4 @@ console.warn: SearchSettings: "get: No settings file exists, new profile?" (new 
 [ERROR glean_core] Error setting metrics feature config: Json(Error("EOF while parsing a value", line: 1, column: 0))
 DevTools listening on ws://127.0.0.1:49813/devtools/browser/bea02882-9732-4d4f-bbfd-d7d49b8687ca
 console.warn: LoginRecipes: "Falling back to a synchronous message for: http://3.109.132.239:8080."
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
