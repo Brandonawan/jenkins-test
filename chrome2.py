@@ -59,42 +59,22 @@ def wcagdb():
     
 wcagdb()
 
-# total_functions = 2  # Update the total number of functions being tested
-# passed_functions = sum(results.values())
-# test_coverage = (passed_functions / total_functions) * 100 if total_functions > 0 else 0
-
-# # Generate the report summary table
-# summary_data = []
-# for func, result in results.items():
-#     status = "Passed" if result else "Failed"
-#     summary_data.append([func, status])
-# summary_data.append(["Test Coverage", f"{test_coverage}%"])
-
-# # Print the report summary table
-# print("---------- Test Report Summary ----------")
-# table_headers = ["Test", "Status"]
-# table = tabulate(summary_data, headers=table_headers, tablefmt="grid")
-# print(table)
-
-# driver.quit()
-
 total_functions = 2  # Update the total number of functions being tested
 passed_functions = sum(results.values())
 test_coverage = (passed_functions / total_functions) * 100 if total_functions > 0 else 0
 
 # Generate the report summary table
 summary_data = []
-serial_number = 1  # Initialize the serial number
 for func, result in results.items():
     status = "Passed" if result else "Failed"
-    summary_data.append([serial_number, func, status])  # Include the serial number in the table
-    serial_number += 1  # Increment the serial number
-summary_data.append(["Test Coverage", "", f"{test_coverage}%"])  # Include an empty column for the Test Case column
+    summary_data.append([func, status])
+summary_data.append(["Test Coverage", f"{test_coverage}%"])
 
 # Print the report summary table
 print("---------- Test Report Summary ----------")
-table_headers = ["Serial No.", "Test Case", "Status"]  # Update the table headers
+table_headers = ["Test Case", "Status"]
 table = tabulate(summary_data, headers=table_headers, tablefmt="grid")
 print(table)
 
 driver.quit()
+
