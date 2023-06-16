@@ -89,20 +89,18 @@ test_coverage = (passed_functions / total_functions) * 100 if total_functions > 
 # Generate the report summary table
 summary_data = []
 for i, (func, result) in enumerate(results.items(), start=1):
-    status = colored("Passed", "green") if result else colored("Failed", "red")
+    status = "Passed" if result else "Failed"
     summary_data.append([i, func, status])
-summary_data.append([colored("Test Coverage", attrs=["bold"]), colored(f"{test_coverage:.2f}%", attrs=["bold"])])
+summary_data.append(["Test Coverage", f"{test_coverage:.2f}%"])
 
 # Print the report summary table
 print("---------- Test Report Summary ----------")
-table_headers = [colored("Test Case", attrs=["bold"]), colored("Function", attrs=["bold"]), colored("Status", attrs=["bold"])]
-table = tabulate(summary_data, headers=table_headers, tablefmt="grid")
+table_headers = ["Test Case", "Function", "Status"]
+table = tabulate(summary_data, headers=table_headers, tablefmt="html")
 print(table)
 
 # Generate HTML report
-html_table = tabulate(summary_data, headers=table_headers, tablefmt="html")
-
 with open("report.html", "w") as f:
-    f.write(html_table)
+    f.write(table)
 
 driver.quit()
