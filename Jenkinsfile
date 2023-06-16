@@ -54,7 +54,7 @@ pipeline {
     }
     stage('Run Selenium Script') {
       steps {
-        sh 'python3 chrome.py'
+        sh 'python3 hello.py'
       }
     }
   }

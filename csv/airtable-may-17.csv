@@ -1,0 +1,37 @@
+﻿Name,Level,Dependencies,Variants,Notes,Level-calculated
+typography,0,,,,0
+color,0,,,,0
+iconography,0,,,"a set of icons
+
+",0
+border,0,,,,0
+focus_ring,0,,,,0
+spacing,0,,,,0
+imagery,0,,,,0
+shadow,0,,,,0
+button,1,"typography,focus_ring,color,spacing","button-icon, button-icononly",,1
+icon,1,"iconography,spacing,color",,,1
+badge,1,"typography,spacing,color",,,1
+link,1,"typography,focus_ring,color,spacing",,,1
+image,1,imagery,,,1
+heading,1,"typography,color",,,1
+list_item,1,"typography,color,spacing",,,1
+list,1,spacing,,,1
+card,2,"image,button,heading,typography,link",,,1
+table,1,"typography,spacing",,,1
+modal,2,"heading,button",,,1
+pagination,2,"link,spacing",,,1
+input_label,1,"color,typography,spacing",,,1
+input_field,1,"color,border,spacing",,,1
+error_message,1,"color,spacing,typography",,,1
+text_input,2,"input_label,input_field,error_message",,,1
+text_area,2,"input_label,input_field,error_message",,,1
+tabs,2,"button,spacing",,,1
+select,2,"input_label,input_field,error_message",,,1
+accordion,2,"icon,button,heading",,,1
+pill,2,"button,spacing,focus_ring",,,1
+progress,1,"color,typography,spacing",,,1
+,,,,,0
+,,,,,0
+,,,,,0
+,,,,,0
